@@ -12,32 +12,26 @@
 					</div>
 					<div class="hidden md:block">
 						<div class="ml-10 flex items-baseline space-x-4">
-							<a
+							<router-link
 								v-for="item in navigation"
 								:key="item.name"
-								:href="item.href"
+								:to="item.to"
 								:class="[
-									item.current
-										? 'bg-gray-900 text-white'
+									this.$router.name === item.to.name
+										? ''
 										: 'text-gray-300 hover:bg-gray-700 hover:text-white',
 									'px-3 py-2 rounded-md text-sm font-medium',
 								]"
+								active-class="bg-gray-900 text-white"
 								:aria-current="item.current ? 'page' : undefined"
-								>{{ item.name }}</a
 							>
+								{{ item.name }}
+							</router-link>
 						</div>
 					</div>
 				</div>
 				<div class="hidden md:block">
 					<div class="ml-4 flex items-center md:ml-6">
-						<button
-							type="button"
-							class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-						>
-							<span class="sr-only">View notifications</span>
-							<BellIcon class="h-6 w-6" aria-hidden="true" />
-						</button>
-
 						<!-- Profile dropdown -->
 						<Menu as="div" class="ml-3 relative">
 							<div>
@@ -63,19 +57,14 @@
 								<MenuItems
 									class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
 								>
-									<MenuItem
-										v-for="item in userNavigation"
-										:key="item.name"
-										v-slot="{ active }"
-									>
+									<MenuItem>
 										<a
-											:href="item.href"
-											:class="[
-												active ? 'bg-gray-100' : '',
-												'block px-4 py-2 text-sm text-gray-700',
-											]"
-											>{{ item.name }}</a
+											@click="logout"
+											href="#"
+											class="block px-4 py-2 text-sm text-gray-700"
 										>
+											Logout
+										</a>
 									</MenuItem>
 								</MenuItems>
 							</transition>
@@ -97,20 +86,22 @@
 
 		<DisclosurePanel class="md:hidden">
 			<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-				<DisclosureButton
+				<router-link
 					v-for="item in navigation"
 					:key="item.name"
 					as="a"
-					:href="item.href"
+					:to="item.to"
+					active-class="bg-gray-900 text-white"
 					:class="[
-						item.current
-							? 'bg-gray-900 text-white'
+						this.$route.name !== item.to.name
+							? ''
 							: 'text-gray-300 hover:bg-gray-700 hover:text-white',
 						'block px-3 py-2 rounded-md text-base font-medium',
 					]"
 					:aria-current="item.current ? 'page' : undefined"
-					>{{ item.name }}</DisclosureButton
 				>
+					{{ item.name }}
+				</router-link>
 			</div>
 			<div class="pt-4 pb-3 border-t border-gray-700">
 				<div class="flex items-center px-5">
@@ -125,23 +116,13 @@
 							{{ user.email }}
 						</div>
 					</div>
-					<button
-						type="button"
-						class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-					>
-						<span class="sr-only">View notifications</span>
-						<BellIcon class="h-6 w-6" aria-hidden="true" />
-					</button>
 				</div>
 				<div class="mt-3 px-2 space-y-1">
 					<DisclosureButton
-						v-for="item in userNavigation"
-						:key="item.name"
 						as="a"
-						:href="item.href"
+						href="#"
 						class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-						>{{ item.name }}</DisclosureButton
-					>
+						>Logout</DisclosureButton>
 				</div>
 			</div>
 		</DisclosurePanel>
@@ -166,17 +147,10 @@ const user = {
 	imageUrl:
 		'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 };
+
 const navigation = [
-	{ name: 'Dashboard', href: '#', current: true },
-	{ name: 'Team', href: '#', current: false },
-	{ name: 'Projects', href: '#', current: false },
-	{ name: 'Calendar', href: '#', current: false },
-	{ name: 'Reports', href: '#', current: false },
-];
-const userNavigation = [
-	{ name: 'Your Profile', href: '#' },
-	{ name: 'Settings', href: '#' },
-	{ name: 'Sign out', href: '#' },
+	{ name: 'Dashboard', to: { name: 'Dashboard' } },
+	{ name: 'Survey', to: '/survey' },
 ];
 
 export default {
@@ -197,7 +171,6 @@ export default {
 		return {
 			user,
 			navigation,
-			userNavigation,
 		};
 	},
 };
