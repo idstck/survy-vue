@@ -2,29 +2,26 @@
 	<div class="min-h-full">
 		<Navigation />
 
-		<header class="bg-white shadow">
-			<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-				<h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
-			</div>
-		</header>
+		<Header> Dashboard </Header>
+
 		<main>
 			<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-				<!-- Replace with your content -->
-				<div class="px-4 py-6 sm:px-0">
-					<div class="border-4 border-dashed border-gray-200 rounded-lg h-96" />
-				</div>
-				<!-- /End replace -->
+				<DashboardContent />
 			</div>
 		</main>
 	</div>
 </template>
 
 <script>
-import Navigation from '../components/dashboard/Navigation.vue';
+import Navigation from '../components/layout/Navigation.vue';
+import Header from '../components/layout/Header.vue';
+import DashboardContent from '../components/dashboard/DashboardContent.vue';
 
 export default {
 	components: {
 		Navigation,
+		Header,
+		DashboardContent,
 	},
 };
 </script>
