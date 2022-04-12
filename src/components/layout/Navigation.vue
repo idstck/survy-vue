@@ -121,8 +121,10 @@
 					<DisclosureButton
 						as="a"
 						href="#"
+						@click="logout"
 						class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-						>Logout</DisclosureButton>
+						>Logout</DisclosureButton
+					>
 				</div>
 			</div>
 		</DisclosurePanel>
@@ -140,6 +142,8 @@ import {
 	MenuItem,
 	MenuItems,
 } from '@headlessui/vue';
+import { useRouter } from 'vue-router';
+import { useAuth } from '../../store/auth';
 
 const user = {
 	name: 'Tom Cook',
@@ -168,9 +172,20 @@ export default {
 	},
 
 	setup() {
+		const router = useRouter();
+		const auth = useAuth();
+
+		const logout = async () => {
+			await auth.logout();
+			router.replace({
+				name: 'Login',
+			});
+		};
+
 		return {
 			user,
 			navigation,
+			logout,
 		};
 	},
 };
