@@ -4,13 +4,11 @@ import { ref } from 'vue';
 
 export const useAuth = defineStore('auth-store', () => {
 	const user = ref(null);
-	const authenticated = ref(false);
 
 	const register = async function (credentials) {
 		try {
 			await axios.get('/sanctum/csrf-cookie');
 			await axios.post('/register', credentials);
-			authenticated.value = true;
 			getUser();
 		} catch (err) {
 			user.value = null;
@@ -23,7 +21,6 @@ export const useAuth = defineStore('auth-store', () => {
 		try {
 			await axios.get('/sanctum/csrf-cookie');
 			await axios.post('/login', credentials);
-			authenticated.value = true;
 			getUser();
 		} catch (err) {
 			authenticated.value = false;
@@ -36,7 +33,6 @@ export const useAuth = defineStore('auth-store', () => {
 	const logout = async function () {
 		try {
 			await axios.post('/logout');
-			authenticated.value = false;
 			user.value = null;
 		} catch (err) {
 			console.error('Error loading new arrivals:', err);
@@ -47,9 +43,7 @@ export const useAuth = defineStore('auth-store', () => {
 	const getUser = async function () {
 		try {
 			const response = await axios.get('/api/user');
-			const result = await response;
 			user.value = response.data;
-			console.log(user.value);
 		} catch (err) {
 			console.error('Error loading new arrivals:', err);
 			return err;
