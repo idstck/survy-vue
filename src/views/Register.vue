@@ -93,6 +93,11 @@
 
 <script setup>
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuth } from '../store/auth';
+
+const router = useRouter();
+const store = useAuth();
 
 const user = reactive({
 	name: '',
@@ -102,11 +107,9 @@ const user = reactive({
 });
 
 const register = async () => {
-	alert(`
-        name: ${user.name} 
-        email: ${user.email} 
-        password: ${user.password}
-        password_confirmation: ${user.password_confirmation}
-    `);
+	await store.register(user);
+	router.replace({
+		name: 'Dashboard',
+	});
 };
 </script>
