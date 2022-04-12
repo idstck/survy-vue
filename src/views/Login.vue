@@ -79,16 +79,21 @@
 
 <script setup>
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuth } from '../store/auth';
+
+const router = useRouter();
+const store = useAuth();
 
 const user = reactive({
 	email: '',
 	password: '',
 });
 
-const login = () => {
-	alert(`
-        email: ${user.email} 
-        password: ${user.password}
-    `);
+const login = async () => {
+	await store.login(user);
+	router.replace({
+		name: 'Dashboard',
+	});
 };
 </script>
