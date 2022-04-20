@@ -1,4 +1,6 @@
+import App from '../components/layout/App.vue';
 import Dashboard from '../views/Dashboard.vue';
+import Survey from '../views/Survey.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 
@@ -8,8 +10,11 @@ import { useAuth } from '../store/auth';
 const routes = [
 	{
 		path: '/',
-		name: 'Dashboard',
-		component: Dashboard,
+		component: App,
+		children: [
+			{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
+			{ path: '/survey', name: 'Survey', component: Survey },
+		],
 		meta: {
 			requireAuth: true
 		}

@@ -154,7 +154,7 @@ const user = {
 
 const navigation = [
 	{ name: 'Dashboard', to: { name: 'Dashboard' } },
-	{ name: 'Survey', to: '/survey' },
+	{ name: 'Survey', to: { name: 'Survey' }  },
 ];
 
 export default {
