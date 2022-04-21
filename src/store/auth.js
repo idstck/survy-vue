@@ -4,6 +4,7 @@ import { ref } from 'vue';
 
 export const useAuth = defineStore('auth-store', () => {
 	const user = ref(null);
+	const authenticated = ref(false);
 
 	const register = async function (credentials) {
 		try {
@@ -12,6 +13,7 @@ export const useAuth = defineStore('auth-store', () => {
 			getUser();
 		} catch (err) {
 			user.value = null;
+			authenticated.value = false;
 			console.error('Error loading new arrivals:', err);
 			return err;
 		}
@@ -34,6 +36,7 @@ export const useAuth = defineStore('auth-store', () => {
 		try {
 			await axios.post('/logout');
 			user.value = null;
+			authenticated.value = false;
 		} catch (err) {
 			console.error('Error loading new arrivals:', err);
 			return err;
@@ -44,7 +47,10 @@ export const useAuth = defineStore('auth-store', () => {
 		try {
 			const response = await axios.get('/api/user');
 			user.value = response.data;
+			authenticated.value = true;
 		} catch (err) {
+			user.value = null;
+			authenticated.value = false;
 			console.error('Error loading new arrivals:', err);
 			return err;
 		}
@@ -56,5 +62,6 @@ export const useAuth = defineStore('auth-store', () => {
 		login,
 		getUser,
 		logout,
+		authenticated,
 	};
 });
