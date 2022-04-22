@@ -18,8 +18,17 @@ export const useSurvey = defineStore('survey-store', () => {
 		}
 	};
 
+	const deleteSurvey = async (id) => {
+		try {
+			return axios.delete(`/api/survey/${id}`);
+		} catch (error) {
+			throw error.response;
+		}
+	};
+
 	return {
 		surveys,
 		getSurveys,
+		deleteSurvey,
 	};
 });

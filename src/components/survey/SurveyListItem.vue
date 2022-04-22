@@ -28,6 +28,7 @@
 				Edit
 			</router-link>
 			<button
+				@click="emit('delete', survey)"
 				class="h-8 w-8 flex items-center justify-center rounded-full border border-transparent text-sm text-red-500 focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
 			>
 				<svg
@@ -53,6 +54,8 @@
 const { survey } = defineProps({
 	survey: Object,
 });
+
+const emit = defineEmits(['delete']);
 </script>
 
 <style></style>
