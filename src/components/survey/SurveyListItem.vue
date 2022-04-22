@@ -2,14 +2,9 @@
 	<div
 		class="flex flex-col py-4 px-6 shadow-md bg-white hover:bg-gray-50 h-[470px] rounded-lg"
 	>
-		<img src="#" alt="#" class="w-full h-48 object-cover" />
-		<h4 class="mt-4 text-lg font-bold">Title</h4>
-		<div class="overflow-hidden flex-1">
-			Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati vitae
-			tempore amet in inventore temporibus voluptatum nihil repellendus minus
-			nostrum. Ea dolorem eveniet ipsum quaerat consequatur rem laudantium eaque
-			neque.
-		</div>
+		<img :src="survey.image" alt="#" class="w-full h-48 object-cover" />
+		<h4 class="mt-4 text-lg font-bold">{{ survey.title }}</h4>
+		<div v-html="survey.description" class="overflow-hidden flex-1"></div>
 
 		<div class="flex justify-between items-center mt-3">
 			<router-link
@@ -54,6 +49,10 @@
 	</div>
 </template>
 
-<script setup></script>
+<script setup>
+const { survey } = defineProps({
+	survey: Object,
+});
+</script>
 
 <style></style>

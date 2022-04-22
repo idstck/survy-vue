@@ -1,7 +1,9 @@
 <template>
 	<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-		{{ data }}
-		<SurveyListItem />
+		<SurveyListItem 
+			v-for="survey in data" 
+			:key="survey.id" 
+			:survey="survey" />
 	</div>
 </template>
 
